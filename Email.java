@@ -1,34 +1,28 @@
 package com.jonnyparko.web.webSite;
 
+import javax.xml.bind.annotation.XmlRootElement;
+
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
+@XmlRootElement
+@Data
+@AllArgsConstructor
+@NoArgsConstructor
+
 public class Email {
 	
-	private String name;
-	private String sender;
-	private String recipenent;
-	private String message;
-	
-	public String getName() {
-		return name;
-	}
-	public void setName(String name) {
-		this.name = name;
-	}
-	public String getSender() {
-		return sender;
-	}
-	public void setSender(String sender) {
-		this.sender = sender;
-	}
-	public String getRecipenent() {
-		return recipenent;
-	}
-	public void setRecipenent(String recipenent) {
-		this.recipenent = recipenent;
-	}
+    private String username;
+    private String email;
+    private String subject;
+    private String message;
+    
 	public String getMessage() {
 		return message;
 	}
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
 }
