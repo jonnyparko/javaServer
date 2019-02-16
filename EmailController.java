@@ -27,20 +27,21 @@ public class EmailController {
 	@CrossOrigin(origins = "http://localhost:4200")
 	@RequestMapping(value = "/send", method = RequestMethod.POST, consumes = "application/json")    	
 	@ResponseBody
-	public String sendMail(@RequestBody Email emailModel) {
+	public HttpStatus sendMail(@RequestBody Email emailModel) {
         MimeMessage message = sender.createMimeMessage();
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
-            helper.setTo("demo@gmail.com");
+        	helper.setTo("p4rk3rj0n@gmail.com");
+        	helper.setFrom(emailModel.getFromEmail());
             helper.setText(emailModel.getMessage());
-            helper.setSubject("Mail From Spring Boot");
+            helper.setSubject(emailModel.getFromEmail());
         } catch (MessagingException e) {
             e.printStackTrace();
-            return response = "Fail";
+            return HttpStatus.BAD_REQUEST;
         }
         sender.send(message);
-        return response = "Success";
+        return HttpStatus.ACCEPTED;
     }
     
 }
