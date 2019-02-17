@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.Properties;
-
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,10 +32,10 @@ public class EmailController {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
-        	helper.setTo(getEmailFromConfig());
-        	helper.setFrom(emailModel.getFromEmail());
-            helper.setText(emailModel.getMessage());
-            helper.setSubject(emailModel.getFromEmail());
+			helper.setTo(getEmailFromConfig());
+			helper.setFrom(emailModel.getFromEmail());
+		    helper.setText(emailModel.getMessage());
+		    helper.setSubject(emailModel.getFromEmail());
         } catch (MessagingException e) {
             e.printStackTrace();
             return HttpStatus.BAD_REQUEST;
@@ -55,7 +54,7 @@ public class EmailController {
 
 			username = props.getProperty("spring.mail.username");
 
-			System.out.print("username is: " + username);
+//			System.out.print("username is: " + username);
 			reader.close();
 		} catch (FileNotFoundException ex) {
 			// file does not exist
