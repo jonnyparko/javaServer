@@ -1,5 +1,11 @@
 package com.jonnyparko.web.webSite;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.Properties;
+
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +33,7 @@ public class EmailController {
         MimeMessageHelper helper = new MimeMessageHelper(message);
 
         try {
-        	helper.setTo("p4rk3rj0n@gmail.com");
+        	helper.setTo(getEmailFromConfig());
         	helper.setFrom(emailModel.getFromEmail());
             helper.setText(emailModel.getMessage());
             helper.setSubject(emailModel.getFromEmail());
@@ -38,5 +44,25 @@ public class EmailController {
         sender.send(message);
         return HttpStatus.ACCEPTED;
     }
+	
+	private String getEmailFromConfig() {
+		File configFile = new File("/Users/jonathanparker/website/server/src/main/resources/application.properties");
+		String username = "";
+		try {
+			FileReader reader = new FileReader(configFile);
+			Properties props = new Properties();
+			props.load(reader);
+
+			username = props.getProperty("spring.mail.username");
+
+			System.out.print("username is: " + username);
+			reader.close();
+		} catch (FileNotFoundException ex) {
+			// file does not exist
+		} catch (IOException ex) {
+			// I/O error
+		}
+		return username;
+	}
     
 }
